@@ -8,6 +8,12 @@
 
 'use strict';
 
+
+// 涉及到路径等操作，相关內建模块
+const os = require('os'),
+    path = require('path');
+
+
 module.exports = function (grunt) {
 
     // Please see the Grunt documentation for more information regarding task
@@ -18,10 +24,41 @@ module.exports = function (grunt) {
         // this.options() 用于获取 Gruntfile.js 中声明的 options，
         // 参数中的对象为默认值，如 Gruntfile 中有同名属性则会覆盖默认值。
         var options = this.options({
-            //以下2个参数为GruntPlugin模板给出的
-            punctuation: '.',
-            separator: ', '
+            who: 'buddha',
+            commentSymbol: '//'
         });
+
+        // 先处理字符画片段
+        var
+            // 各保佑神字符画文件的所在位置
+            commentFilepathMap = {
+                buddha: 'asset/buddha.txt',
+                alpaca: 'asset/alpaca.txt'
+            },
+
+            // 用于校验是否已添加过字符画的正则
+            testExistRegexMap = {
+                buddha: /     o8888888o/,
+                alpaca: /   ┗┓┓┏━━━━┳┓┏┛/
+            },
+
+            // 获取所选的保佑神文件的完整路径
+            commentFilepath = path.join(__dirname, commentFilepathMap[options.who]),
+
+            // 读取字符画文件
+            commentContent = grunt.file.read(commentFilepath),
+
+            // 按行分裂成数组
+            lineCommentArr = commentContent.split(os.EOL);
+
+        // 在每行内容前面加上注释符
+        lineCommentArr.forEach(function (item, index, arr) {
+            arr[index] = options.commentSymbol + item;
+        });
+
+        // 重新拼接内容
+        commentContent = lineCommentArr.join(os.EOL);
+
 
         // Iterate over all specified file groups.
         // 如果 grunt task 是通过 registerMultiTask 注册的，
@@ -29,10 +66,10 @@ module.exports = function (grunt) {
         // 这里都会被转化成 File Array Format。
         // 所以这里使用 forEach 进行迭代。
         this.files.forEach(function (file) {
-            // Concat specified files.
+
             // 无论在 Gruntfile 中 src 是字符串还是数组，
             // 这里的 src 都会被转换成数组形式，所以可以使用 filter 方法
-            var src = file.src.filter(function (filepath) {
+            file.src.filter(function (filepath) {
                 // Warn on and remove invalid source files (if nonull was set).
                 if (!grunt.file.exists(filepath)) {
                     grunt.log.warn('Source file "' + filepath + '" not found.');
@@ -40,25 +77,22 @@ module.exports = function (grunt) {
                 } else {
                     return true;
                 }
-            }).map(function (filepath) {
+            }).forEach(function (filepath) {
                 // Read file source.
-                // 读取文件内容
-                return grunt.file.read(filepath);
-            }).join(grunt.util.normalizelf(options.separator));
-            // ↑ 把读取的文件内容连起来，
-            // 连接之前，把options.separator 中的换行符（实际上这里是', '）替换成系统相关的换行符
-            // http://gruntjs.com/api/grunt.util#grunt.util.normalizelf
+                var originalFileContent = grunt.file.read(filepath),
+                    newFileContent = commentContent + os.EOL + originalFileContent;
 
-            // Handle options.
-            src += options.punctuation;
+                // 如果已经添加过，则直接返回
+                if (testExistRegexMap[options.who].test(originalFileContent)) {
+                    return;
+                }
 
-            // Write the destination file.
-            // 这里的 dest 为 String 类型
-            grunt.file.write(file.dest, src);
+                //把拼接好字符画注释的文件内容写回去
+                grunt.file.write(filepath, newFileContent);
+            });
 
             // Print a success message.
-            grunt.log.writeln('File "' + file.dest + '" created.');
+            grunt.log.writeln('File "' + file.src + '" created.');
         });
     });
-
 };
