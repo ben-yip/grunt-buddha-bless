@@ -2,6 +2,35 @@
 
 > Buddha shines, no bugs alive.
 
+Add some ASCII Arts (as comment) in your src files, and wish them bless you from bugs.  
+*Many optional ASCII Arts provided.*
+
+Sample:
+```code
+//                   _ooOoo_
+//                  o8888888o
+//                  88" . "88
+//                  (| -_- |)
+//                  O\  =  /O
+//               ____/`---'\____
+//             .'  \\|     |//  `.
+//            /  \\|||  :  |||//  \
+//           /  _||||| -:- |||||-  \
+//           |   | \\\  -  /// |   |
+//           | \_|  ''\---/''  |   |
+//           \  .-\__  `-`  ___/-. /
+//         ___`. .'  /--.--\  `. . __
+//      ."" '<  `.___\_<|>_/___.'  >'"".
+//     | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//     \  \ `-.   \_ __\ /__ _/   .-` /  /
+//======`-.____`-.___\_____/___.-`____.-'======
+//                   `=---='
+//
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//          佛祖保佑           永无BUG
+//         God Bless        Never Crash
+```
+
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
@@ -22,6 +51,8 @@ grunt.loadNpmTasks('grunt-buddha-bless');
 ### Overview
 In your project's Gruntfile, add a section named `buddha` to the data object passed into `grunt.initConfig()`.
 
+**Note:** this **plugin** named 'grunt-buddha-bless' while the **task** just named 'buddha'.
+
 ```js
 grunt.initConfig({
   buddha: {
@@ -37,48 +68,46 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### options.who
+Type: `String`  
+Default value: `buddha`  
+Optional value: `buddha`, `alpaca`
 
-A string value that is used to do something with whatever.
+choose an ASCII Arts to be prepended to your src files.
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+#### options.commentSymbol
+Type: `String`  
+Default value: `//`  
 
-A string value that is used to do something else with whatever else.
+Specify which comment symbol to use.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, the default options are used to add add a buddha ASCII Art.
 
 ```js
 grunt.initConfig({
   buddha: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    dist: 'example/*.js'
+  }
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+In this example, custom options are used to add a alpaca ASCII Art.
 
 ```js
 grunt.initConfig({
   buddha: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    alpaca : {
+        options: {
+          who: 'alpaca',
+          commentSymbol: '//'
+        },
+        src: ['example/test1.js', 'example/test2.js']
+    }
+  }
 });
 ```
 
@@ -86,4 +115,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+2016-12-22 &nbsp; v0.0.1 &nbsp; init
