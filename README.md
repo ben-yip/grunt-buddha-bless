@@ -6,6 +6,7 @@ Add some ASCII Arts (as comment) in your src files, and wish them bless you from
 *Many optional ASCII Arts provided.*
 
 Sample:
+
 ```js
 //                   _ooOoo_
 //                  o8888888o
