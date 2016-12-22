@@ -1,6 +1,6 @@
 /*
- * grunt-buddha
- * https://github.com/ben-yip/grunt-buddha
+ * grunt-buddha-bless
+ * https://github.com/ben-yip/grunt-buddha-bless
  *
  * Copyright (c) 2016 BenYip
  * Licensed under the MIT license.

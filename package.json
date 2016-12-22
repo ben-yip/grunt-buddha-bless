@@ -1,23 +1,23 @@
 {
-  "name": "grunt-buddha",
+  "name": "grunt-buddha-bless",
   "description": "Buddha shines, no bugs alive.",
   "version": "0.1.0",
-  "homepage": "https://github.com/ben-yip/grunt-buddha",
+  "homepage": "https://github.com/ben-yip/grunt-buddha-bless",
   "author": {
     "name": "BenYip",
     "email": "endless_leaf@163.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ben-yip/grunt-buddha.git"
+    "url": "https://github.com/ben-yip/grunt-buddha-bless.git"
   },
   "bugs": {
-    "url": "https://github.com/ben-yip/grunt-buddha/issues"
+    "url": "https://github.com/ben-yip/grunt-buddha-bless/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/ben-yip/grunt-buddha/blob/master/LICENSE-MIT"
+      "url": "https://github.com/ben-yip/grunt-buddha-bless/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
