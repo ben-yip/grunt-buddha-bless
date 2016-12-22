@@ -66,7 +66,8 @@ module.exports = function (grunt) {
 
     });
 
-    // 加载 tasks 目录下的文件，参数中的路径相对于 Gruntfile
+    // 使用 loadTasks() 加载位于本地的 task
+    // 这里加载 tasks 目录下的文件，参数中的路径相对于 Gruntfile
     // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
 
