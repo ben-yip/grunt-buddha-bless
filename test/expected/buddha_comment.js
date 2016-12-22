@@ -20,10 +20,6 @@
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //          佛祖保佑           永无BUG
 //         God Bless        Never Crash
-/**
- * Created by BenYip on 2016-12-21.
- */
-
 ;(function () {
-    console.log('test2');
+    console.log('buddha shines, no bugs alive.');
 })();
