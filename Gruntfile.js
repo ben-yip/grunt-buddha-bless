@@ -19,7 +19,8 @@ module.exports = function (grunt) {
                 '<%= nodeunit.tests %>'
             ],
             options: {
-                jshintrc: '.jshintrc'
+                jshintrc: '.jshintrc',
+                reporterOutput: ''
             }
         },
 
@@ -28,18 +29,33 @@ module.exports = function (grunt) {
             tests: ['tmp']
         },
 
+        copy: {
+            toTemp: {
+                // 这里使用的是 compact format
+                expand: true,
+                cwd: 'test/fixtures/',
+                src: '*',
+                dest: 'tmp/'
+            }
+        },
+
         // 这里生成了与插件名称相应的task(准确来讲是同名)
-        // 用于测试插件的逻辑功能
+        // 跑完插件的逻辑功能后，进入后续的测试任务
         // Configuration to be run (and then tested).
         buddha: {
-            options: {
-                // who: 'buddha',  // who to bless your code: 'buddha' or 'alpaca'
-                who: 'alpaca',
-                commentSymbol: '//'
+            buddha: {
+                src: 'tmp/buddha.js',
+                options: {
+                    who: 'buddha',  // who to bless your code: 'buddha' or 'alpaca'
+                    commentSymbol: '//'
+                }
             },
-
-            dist: {
-                src: 'test/fixtures/*.js'
+            alpaca: {
+                src: 'tmp/alpaca.js',
+                options: {
+                    who: 'alpaca',
+                    commentSymbol: '//'
+                }
             }
         },
 
@@ -57,11 +73,17 @@ module.exports = function (grunt) {
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
     // Whenever the "test" task is run, first clean the "tmp" dir, then run this
     // plugin's task(s), then test the result.
-    grunt.registerTask('test', ['clean', 'buddha', 'nodeunit']);
+    grunt.registerTask('test', 'test this plugin', [
+        'clean',
+        'copy',
+        'buddha',
+        'nodeunit'
+    ]);
 
     // By default, lint and run all tests.
     grunt.registerTask('default', ['jshint', 'test']);
